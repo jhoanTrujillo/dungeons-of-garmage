@@ -1,3 +1,13 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+from rich import print
+
+def main():
+  print(r"""\ [red]
+    ____                                                   ____   ______                                    
+   / __ \__  ______  ____ ____  ____  ____  _____   ____  / __/  / ____/___ __________ ___  ____ _____ ____ 
+  / / / / / / / __ \/ __ `/ _ \/ __ \/ __ \/ ___/  / __ \/ /_   / / __/ __ `/ ___/ __ `__ \/ __ `/ __ `/ _ \
+ / /_/ / /_/ / / / / /_/ /  __/ /_/ / / / (__  )  / /_/ / __/  / /_/ / /_/ / /  / / / / / / /_/ / /_/ /  __/
+/_____/\__,_/_/ /_/\__, /\___/\____/_/ /_/____/   \____/_/     \____/\__,_/_/  /_/ /_/ /_/\__,_/\__, /\___/ 
+                  /____/                                                                       /____/     [/ red]""")
+
+
+main()
