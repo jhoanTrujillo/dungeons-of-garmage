@@ -3,30 +3,70 @@ class StoryNode:
   This class contains the text display in each event, and the choices
   the player get to make.
   """
-  def __init__(self, event, options):
-    self.event = event
+  def __init__(self, text, options, is_damage=False, is_healing=False, is_ending=False):
+    self.text = text
     self.options = options
+    self.is_damage = is_damage
+    self.is_healing = is_healing
+    self.is_ending = is_ending
 
-  
-node1 = StoryNode(
-  """
-  As you enter the dungeon a [dark green]musty smell[/ dark green], and a [darkgrey]dark semi lit[/ darkgrey] corridor greet you.
-  You can tell time isn't a friend of what could have once being a fortress.
-  """,
-[("Rush through the corridor",node1_a),("Analyze the corridor",node1_b)])
+  def add_option(self, option, next_node):
+      """
+      Allows to add option to any node. 
+      WARNING: Not tested yet, and might be remove
+      """
+      self.options.append((option, next_node))
 
-node1_a = StoryNode(
-  """
-  [yellow bold]"A trap!?"[/ yello bold] you said, as you ran. But your speed was greater than the collapsing 
-  floor. Now you stand at the entrance of a grand room, several artifacts of old left behind.
-  In front of you the only visible door, but it is so... [black]dark[/ black].
-  """,
-[("Search around the room.",node1),("Head towards the door.",node)])
+#### Story nodes #####
 
-node1_b = StoryNode(
+### Endings
+
+test_ending = StoryNode(
+  "\nEnd of test.",
+   [
+      ("Leave dungeon", None)
+    ],
+    is_ending = True
+  )
+
+### Story
+caves_a = StoryNode(
   """
-  As you carefully look around the floor drops. You fall several meters into a underground 
-  water body, [red bold]taking 1 damage[/ red bold]. You can see the edge and hear the noises
-  of creatures nearby.
+  End of path
   """,
-[("Hide in the shadows.",node1),("Hold your breath!",node1)])
+   [
+      ("Ending", test_ending)
+    ]
+  )
+
+caves = StoryNode(
+  """The floor under your feet opens up, and you fall into a pitch black pit. *Spalsh* you fall harshly into a body of water.\n
+  As you resurface you hear creatures in the distances and see a torch approaching. What do you do?
+  """,
+   [
+      ("Hide in the shadows", caves_a),
+      ("Hold my breath", caves_a)
+    ],
+    is_damage=True
+  )
+
+treasure_room = StoryNode(
+  """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses. 
+After a moment walking in the corridor
+you start hearing a unfamiliar noise, what would you do?""",
+   [
+      ("Run!", test_ending),
+      ("Listen carefully", caves)
+    ]
+  )
+
+#Initial node
+corridor = StoryNode(
+  """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses.
+After a moment walking in the corridor
+you start hearing a unfamiliar noise, what would you do?""",
+   [
+      ("Run!", treasure_room),
+      ("Listen carefully", caves)
+    ]
+  )

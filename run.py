@@ -1,45 +1,61 @@
-import sys
 from rich import print
-import classess.choices
+from classess.choices import *
+from utility.utility import *
+from classess.player import player
 
-story_node = classess.choices
 
+#The main play option is found below.
 def play(node):
     """
     Reads the nodes that handle the event print, and change the history
     based on the player choice.
     """
-    #Prints the text string from the story node called. 
-    print(node.event)
-    #Goes over the choice the player can make and adds prompt
-    for i, (option, _) in enumerate(node.options, 1):
+    print("""\n=============================================================\n""")
+    event = node
+    #Trim any white space from the string in the node object
+    event_text = event.text.strip(" ")
+    slow_print(event_text)
+    #Checks for the variables in the node
+    if event.is_ending == True:
+        exit_game()
+        
+    if event.is_healing == True:
+        message_on_healing = player.restore_damage()
+        print(message_on_healing)
+
+    if event.is_damage == True:
+        message_on_damage = player.take_damage()
+        print(message_on_damage)
+
+    #Iterate over the choices the player can take and addes them to the menu.
+    for i, (option, _) in enumerate(event.options, 1):
         print(f"{i}. {option}")
-    choice = int(input("Enter the number of your choice: (1 or 2) \n"))
-    next_node = node.options[choice - 1][1]
+
+    try:
+        choice = int(input("Enter (1 or 2) for options, any other button to leave: \n"))
+    except ValueError:
+        exit()
+
+    #Assign a value equal to the next node given choices node
+    next_node = event.options[choice - 1][1]
     play(next_node)
 
 def start():
     """
     Read player input and allow access to play function if input is 'Y'
     """
-    player_choice = input("Do you wish to continue? (Y/N):\n")
-    if type(player_choice) == 'str':
-        player_choice.lower()
-
-    try:
-        if type(player_choice) != str:
-            raise ValueError("Please enter a value of (either 'y' or 'n').")
-        elif player_choice == 'y':
-            play(story_node.node1)
-        elif player_choice == 'n':
-            exit()
-    except ValueError as e:
-        print(e)
-        start()
-
-def exit():
-   print("[red]Farewell, Wanderer...[/red]")
-   sys.exit()
+    player_choice = str(input("Do you wish to continue? (Y/N):\n"))
+    str_validator(player_choice)
+    
+    player_choice.lower()
+    
+    if player_choice == 'y':
+        play(corridor)
+    elif player_choice == 'n':
+        exit_game()
+    else: 
+       print('[red bold]Please type either "y" to play or "n" to exit. [/ red bold]')
+       start()
 
 def main():
   """
