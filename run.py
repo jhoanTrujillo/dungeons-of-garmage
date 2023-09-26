@@ -1,65 +1,56 @@
 from rich import print
-from classess.choices import *
-from utility.utility import *
+import classess.choices as event
+import utility.utility as util
 from classess.player import player
 
 
 #The main play option is found below.
-def play(node):
+def play(event_node):
     """
-    Reads the nodes that handle the event print, and change the history
-    based on the player choice.
+    Main game loop. Display event text, choices, and handle player choices.
+    It also handles, damage, heal, and any other event logic.
     """
-    print("""\n=============================================================\n""")
-    event = node
+    print("""\n[cyan]========================================================================[/ cyan]\n""")
     #Trim any white space from the string in the node object
-    event_text = event.text.strip(" ")
-    slow_print(event_text)
-    #Checks for the variables in the node
-    if event.is_ending == True:
-        exit_game()
-        
-    if event.is_healing == True:
-        message_on_healing = player.restore_damage()
-        print(message_on_healing)
-
-    if event.is_damage == True:
-        message_on_damage = player.take_damage()
-        print(message_on_damage)
-
+    event_text = event_node.text.strip(" ")
+    util.slow_print(event_text)
+    util.event_handler(event_node, player)
+    #Space for aesthetic purposes.
+    print("\n")
     #Iterate over the choices the player can take and addes them to the menu.
-    for i, (option, _) in enumerate(event.options, 1):
+    for i, (option, _) in enumerate(event_node.options, 1):
         print(f"{i}. {option}")
 
     try:
-        choice = int(input("Enter (1 or 2) for options, any other button to leave: \n"))
+        choice = int(input("\nEnter (1 or 2) for your choice, or enter any other value to exit: \n"))
     except ValueError:
-        exit()
+        util.exit_game()
 
     #Assign a value equal to the next node given choices node
-    next_node = event.options[choice - 1][1]
+    next_node = event_node.options[choice - 1][1]
     play(next_node)
 
 def start():
     """
-    Read player input and allow access to play function if input is 'Y'
+    Takes the player input, it force the input to become a string. 
+    To prevent error and then triggers the initial event node to get started.
+    Holds the choice loop
     """
     player_choice = str(input("Do you wish to continue? (Y/N):\n"))
-    str_validator(player_choice)
-    
     player_choice.lower()
-    
+
+    #If statement to validate the information
     if player_choice == 'y':
-        play(corridor)
+        play(event.corridor)
     elif player_choice == 'n':
-        exit_game()
+        util.exit_game()
     else: 
-       print('[red bold]Please type either "y" to play or "n" to exit. [/ red bold]')
+       print("[red bold]Enter \"y\" to play or \"n\" to exit.[/ red bold]")
        start()
 
 def main():
   """
-  Holds the main game loop
+  Initial function holds the game start function.
   """
   #Game title
   print("""[green]===========================================================================[/green]""")

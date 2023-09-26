@@ -16,11 +16,13 @@ class StoryNode:
       WARNING: Not tested yet, and might be remove
       """
       self.options.append((option, next_node))
+    
 
-#### Story nodes #####
+################################
+####     Story nodes        ####
+################################
 
 ### Endings
-
 test_ending = StoryNode(
   "\nEnd of test.",
    [
@@ -29,7 +31,7 @@ test_ending = StoryNode(
     is_ending = True
   )
 
-### Story
+### Events/story nodes
 caves_a = StoryNode(
   """
   End of path
@@ -52,8 +54,8 @@ caves = StoryNode(
 
 treasure_room = StoryNode(
   """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses. 
-After a moment walking in the corridor
-you start hearing a unfamiliar noise, what would you do?""",
+After a moment walking in the corridor you start hearing a unfamiliar noise. 
+what would you do?\n""",
    [
       ("Run!", test_ending),
       ("Listen carefully", caves)
@@ -63,8 +65,8 @@ you start hearing a unfamiliar noise, what would you do?""",
 #Initial node
 corridor = StoryNode(
   """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses.
-After a moment walking in the corridor
-you start hearing a unfamiliar noise, what would you do?""",
+After a moment walking in the corridor you start hearing a unfamiliar noise. 
+What would you do?""",
    [
       ("Run!", treasure_room),
       ("Listen carefully", caves)

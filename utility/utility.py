@@ -1,18 +1,24 @@
 import sys,time,random
 from rich import print
 
-def str_validator(str):
-  try:
-    if type(str) != "str":
-      raise ValueError("Please enter a value of (either 'y' or 'n').")
-  except ValueError as e:
-    print(e)
-  else:
-    return
+def event_handler(event, player):
+  """
+  use to handle the events a a more concie maner. It needs a player and
+  choices file to read and function.
+  """
+  if event.is_ending == True:
+      exit_game()
+  
+  if event.is_healing == True:
+    message_on_healing = player.restore_damage()
+    print(message_on_healing)
+  elif event.is_damage == True:
+    message_on_damage = player.take_damage()
+    print(message_on_damage)
 
 def exit_game():
-   print("[red]Farewell, Wanderer...[/red]")
-   sys.exit()
+  print("[red]Farewell, Wanderer...[/red]")
+  sys.exit()
 
 def slow_print(str):
   """
@@ -27,5 +33,7 @@ def slow_print(str):
     #Ensures everything displays in the same line
     sys.stdout.flush()
     #Changes the rate at which each letter is displayed
-    time.sleep(random.random()*10.0/typing_speed)
+    time.sleep(random.random()*15.0/typing_speed)
   print('') 
+
+
