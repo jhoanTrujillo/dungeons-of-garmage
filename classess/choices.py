@@ -1,14 +1,20 @@
-class StoryNode:
+class Event:
   """
   This class contains the text display in each event, and the choices
   the player get to make.
   """
-  def __init__(self, text, options, is_damage=False, is_healing=False, is_ending=False):
+  def __init__(self, text, options, type_of):
     self.text = text
     self.options = options
-    self.is_damage = is_damage
-    self.is_healing = is_healing
-    self.is_ending = is_ending
+    self.type_of = type_of
+    self.categories = {
+      "damage" : False,
+      "healing" : False,
+      "ending" : False,
+      "battle" : False   
+    }
+    self.enable_category()
+    
 
   def add_option(self, option, next_node):
       """
@@ -16,14 +22,19 @@ class StoryNode:
       WARNING: Not tested yet, and might be remove
       """
       self.options.append((option, next_node))
-    
+
+  def enable_category(self):
+     for key in self.categories:
+        if key == self.type_of:
+           self.categories[key] = True
+     
 
 ################################
 ####     Story nodes        ####
 ################################
 
 ### Endings
-test_ending = StoryNode(
+test_ending = Event(
   "\nEnd of test.",
    [
       ("Leave dungeon", None)
@@ -32,7 +43,7 @@ test_ending = StoryNode(
   )
 
 ### Events/story nodes
-caves_a = StoryNode(
+caves_a = Event(
   """
   End of path
   """,
@@ -41,7 +52,7 @@ caves_a = StoryNode(
     ]
   )
 
-caves = StoryNode(
+caves = Event(
   """The floor under your feet opens up, and you fall into a pitch black pit. *Spalsh* you fall harshly into a body of water.\n
   As you resurface you hear creatures in the distances and see a torch approaching. What do you do?
   """,
@@ -52,7 +63,7 @@ caves = StoryNode(
     is_damage=True
   )
 
-treasure_room = StoryNode(
+treasure_room = Event(
   """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses. 
 After a moment walking in the corridor you start hearing a unfamiliar noise. 
 what would you do?\n""",
@@ -63,7 +74,7 @@ what would you do?\n""",
   )
 
 #Initial node
-corridor = StoryNode(
+corridor = Event(
   """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses.
 After a moment walking in the corridor you start hearing a unfamiliar noise. 
 What would you do?""",

@@ -6,6 +6,7 @@ def event_handler(event, player):
   use to handle the events a a more concie maner. It needs a player and
   choices file to read and function.
   """
+  for type_of in event.category:
   if event.is_ending == True:
       exit_game()
   
@@ -35,5 +36,3 @@ def slow_print(str):
     #Changes the rate at which each letter is displayed
     time.sleep(random.random()*15.0/typing_speed)
   print('') 
-
-

@@ -1,7 +1,7 @@
 from rich import print
 import classess.choices as event
 import utility.utility as util
-from classess.player import player
+import classess.characters as chars
 
 
 #The main play option is found below.
@@ -14,7 +14,7 @@ def play(event_node):
     #Trim any white space from the string in the node object
     event_text = event_node.text.strip(" ")
     util.slow_print(event_text)
-    util.event_handler(event_node, player)
+    util.event_handler(event_node, chars.player)
     #Space for aesthetic purposes.
     print("\n")
     #Iterate over the choices the player can take and addes them to the menu.
