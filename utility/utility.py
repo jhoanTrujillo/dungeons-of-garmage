@@ -12,7 +12,6 @@ def start():
     #force value into string
     player_choice = str(input("Do you wish to continue? (y/n):\n"))
     player_choice.lower()
-
     #Checks value, to apply logic.
     if player_choice == 'y':
         play(event.intro)
@@ -31,59 +30,62 @@ def play(event_node):
     print("""\n[cyan]========================================================================[/ cyan]\n""")
     #Checks for the event type, and handles the logic. If the player isn't dead. Display story text.
     event_handler(event_node)
-    #Display the consequences of choices, and the dialog given to the event. 
-    #Listens for player choices and return the value selected by the player. 
-    #It also allows player to end the game. 
+    """
+    Display the consequences of choices, and the dialog given to the event. 
+    Listens for player choices and return the value selected by the player. 
+    It also allows player to end the game. 
+    """
     choice = event_choices(event_node)
     #Uses the choice variable to select the next node that will be display.
     next_node = event_node.options[choice- 1][1]
     play(next_node)
 
 def event_choices(event_node):
-  event_text = event_node.text
-  if event_node.type_of == "ending":
-     print(event_node.text)
-  else:
-    slow_print(event_text)
-
+  #Prints the dialog in the node given, in a human like way.
+  slow_print(event_node.text)
   #Space for aesthetic purposes.
   print("\n")
   #Iterate over the choices the player can take and addes them to the menu.
-  for i, (option, _) in enumerate(event_node.options, 1):
-    slow_print(f"{i}. {option}")
-  #Checks choice type
-  try:
-    choice = int(input("\nEnter (1 or 2) for your choice, or enter any other value to exit: \n"))
-  except ValueError:
-    exit_game()
-
+  if len(event_node.options) > 1:
+    for i, (option, _) in enumerate(event_node.options, 1):
+      slow_print(f"{i}. {option}")
+    #Checks choice type
+    try:
+      choice = int(input("\nEnter (1 or 2) for your choice, or enter any other value to exit: \n"))
+    except ValueError:
+      exit_game()
+  else:
+    print("\n")
+  
   return choice
 
-def event_handler(event):
+def event_handler(event_node):
   """
   use to handle the events a a more concie maner. It needs a player and
   choices file to read and function.
   """
-
-  if event.type_of == "ending":
-    print(f"[blue]And like that does the legend of {player.name} ends.[/ blue]")
+  #Handle endings for the game. Ensures no options are display after text and ends game.
+  if event_node.type_of == "ending":
+    print(event_node.text)
     exit_game()
 
-  if event.type_of == "battle":
+  #Display the text of a battle between enemy and player
+  if event_node.type_of == "battle":
     for enemy_name in enemies:
-      if event.enemy_name == enemy_name:
+      if event_node.enemy_name == enemy_name:
         player.battle(enemy_name)
 
-  if event.type_of == "healing":
+  #Handles the consequence of health reduce or gain from choices.
+  if event_node.type_of == "healing":
     message_on_healing = player.restore_damage()
     print(message_on_healing)
-  elif event.type_of == "healing":
+  elif event_node.type_of == "healing":
     message_on_damage = player.take_damage()
     print(message_on_damage)
 
 def exit_game():
   """
-  Ends game
+  Stop program using the sys module to avoid errors on closing
   """
   print("[red]Farewell...[/red]")
   #exits game without raising an error.
@@ -91,8 +93,7 @@ def exit_game():
 
 def slow_print(str):
   """
-  Display text slower in the terminal. Provides a hand typed feeling to the text.
-  This will help with user readability.
+  Slows down the display of text in the screen to simulate a human typing
   """
   typing_speed = 200
   #Iterate over each letter of the str argument

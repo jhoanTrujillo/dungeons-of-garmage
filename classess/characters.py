@@ -50,7 +50,7 @@ class Character:
           print(f"[red]You took {damage_received} damage[/ red]. You have {self.health} health left")
       #If the enemy is dead it should return a message and break the loop
       else:
-        return f"[green]You defeated the {enemy.name}.[/ Green]Current health: [pink]{self.health}[/pink]"
+        print(f"[green]You defeated the {enemy.name}.[/ Green]Current health: [pink]{self.health}[/pink]")
     #If the while loop can't be execute that means the player is dead. 
     self.is_dead = True
     return self.is_dead
