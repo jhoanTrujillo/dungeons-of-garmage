@@ -22,7 +22,7 @@ def start():
        print("[red ]Enter \"y\" to [bold]play[/ bold] or \"n\" to [bold]exit[/ bold].[/ red bold]")
        start()
 
-#The main play option is found below.
+### Game mechanics ###
 def play(event_node):
     """
     Main game loop. Display event text, choices, and handle player choices.
@@ -75,17 +75,44 @@ def event_handler(event_node):
 
   #Display the text of a battle between enemy and player
   if event_node.type_of == "battle":
+    #We refer to the enemis array 
     enemy_list = enemies
-    player.battle(enemy_list[event_node.enemy_name])
+    #Since modules are unable to accept dot notation with variables holding strings. 
+    #I'm using the array below and the .enemy_name string from the event node.
+    enemy = enemy_list[event_node.enemy_name]
+    #Then we call the battle function
+    battle(player, enemy)
 
   #Handles the consequence of health reduce or gain from choices.
   if event_node.type_of == "healing":
-    message_on_healing = player.restore_damage()
-    print(message_on_healing)
-  elif event_node.type_of == "healing":
-    message_on_damage = player.take_damage()
-    print(message_on_damage)
+    healing = player.restore_damage()
+    print(healing)
+  elif event_node.type_of == "damage":
+    damage = player.take_damage()
+    print(damage)
 
+def battle(player, enemy):
+    """
+    As long as the player has health. Check for the damage
+    calculation between the enemy and the player
+    """
+    while player.is_dead != True:
+      #Calculates and adds damage to enemy. Also, returns a string with an event message.
+      player_attack = player.do_damage(enemy)
+      print(player_attack)
+
+      if enemy.is_dead != True:
+          #Since both player and enemy inherit the same class we can easily re-used the code.
+          enemy_attack = enemy.do_damage(player)
+          print(enemy_attack)
+      #If the enemy is dead it should return a message and break the loop
+      else:
+        print(f"[green]You defeated the {enemy.name}.[/ Green][pink]Current health: {player.health}[/pink]")
+        break
+    else:
+       play(event.dead_by_battle)
+
+### General functions ###
 def exit_game():
   """
   Stop program using the sys module to avoid errors on closing

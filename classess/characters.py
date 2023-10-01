@@ -14,7 +14,10 @@ class Character:
     """
     calculates damage of a battle. 
     """
-    return self.attack - enemy_defense
+    if self.attack > enemy_defense:
+      return self.attack - enemy_defense
+    else:
+      return 1
 
   def take_damage(self, damage=1):
     """
@@ -22,7 +25,11 @@ class Character:
     heal is provided on the call.
     """
     self.health -= damage
-    return f"[red bold]You took damage. Current Health: { self.health }[/red bold]."
+
+    if self.health <= 0:
+      self.is_dead = True
+
+    return f"[red bold]{self.name} took {damage}. Current Health: { self.health }[/red bold]."
   
   def restore_damage(self, heal=1):
     """
@@ -32,36 +39,27 @@ class Character:
     self.health += heal
     return f"[green bold]Some damage was restored. Current Health: { self.health }[/green bold]."
 
-  def battle(self, enemy):
+  def do_damage(self, enemy):
     """
-    As long as the player has health. Check for the damage
-    calculation between the enemy and the player
+    This method adds damage to the enemy that is given to it based on the calculate_damage
+    method which does a really simple calculation. 
     """
-    while self.health > 0:
-      #calculates damage dealt to enemy
-      damage_dealt = self.calculate_damage(enemy.defense)
-      enemy.take_damage(damage_dealt)
-      print(f"[yellow]You dealt {damage_dealt} damage[/ yellow]. To the {enemy.name}")
-      
-      #If enemy is alive calculate damage receive from enemy
-      if enemy.health > 0:
-          damage_received = enemy.calculate_damage(self.defense)
-          self.take_damage(damage_received)
-          print(f"[red]You took {damage_received} damage[/ red]. You have {self.health} health left")
-      #If the enemy is dead it should return a message and break the loop
-      else:
-        print(f"[green]You defeated the {enemy.name}.[/ Green]Current health: [pink]{self.health}[/pink]")
-        break
-    #If the while loop can't be execute that means the player is dead. 
-    self.is_dead = True
-    return self.is_dead
-    
+    damage = self.calculate_damage(enemy.defense)
+    enemy.health -= damage
+    #Checks if the entity affected has less or 0 health and sets the total to 0.
+    #Also, marks them as dead. The total to 0 ensure the display message don't go to negative values.
+    if enemy.health <= 0:
+      enemy.health = 0
+      enemy.is_dead = True
+
+    return f"[red bold]{enemy.name} took {damage}. Current Health: { enemy.health }[/red bold]."
+
 #Player declaration
-player = Character("The Wanderer", 5 ,5, 4)
+player = Character("Player", 5 ,5, 4)
 
 #Enemy declaration
 enemies = {
-  "Skeleton" : Character("Skeleton", 3, 5, 3),
+  "Skeleton" : Character("Skeleton", 5, 5, 2),
   "Wererat" : Character("Wererat", 4, 6, 2),
   "Stone Guardian" : Character("Stone Guardian",  5, 6, 4)
 }

@@ -6,7 +6,7 @@ class Event:
   type_off only need to be added when the event has consequences. It can take the strings:
   battle, healing, damage, ending.
   """
-  def __init__(self, text, options, type_of="", enemy_name=""):
+  def __init__(self, text, options=[], type_of="", enemy_name=""):
     self.text = text
     self.options = options
     self.type_of = type_of
@@ -27,11 +27,15 @@ class Event:
 mimic_ending = Event(
   """You open the chest, thinking on all the richest you will find.
 Then you take a moment and notice a [red]fleshy interior[/ red] and teeth around the lid,
-As you try to close the door [red]a giant tongue surrounds you draggin you inside[/ red].
-""",
-   [],
-    "ending"
-  )
+As you try to close the door [red]a giant tongue surrounds you draggin you inside[/ red].""",
+"ending"
+)
+
+dead_by_battle = Event(
+   """You fought with all your might, but might alone won't save a lost soul.
+[red3]You fell in combat like hundreds of other adventurers seeking greatness[/ red3].""",
+"ending"
+)
 
 ### Underground path
 cave_b = Event(
