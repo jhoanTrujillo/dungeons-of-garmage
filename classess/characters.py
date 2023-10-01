@@ -34,11 +34,9 @@ class Character:
 
   def battle(self, enemy):
     """
-    Makes the player and enemy take damage over time. 
-    The calculation is based on each other's stat.
-    Prints message if the user dies
+    As long as the player has health. Check for the damage
+    calculation between the enemy and the player
     """
-    #execute as long as the player has healt
     while self.health > 0:
       #calculates damage dealt to enemy
       damage_dealt = self.calculate_damage(enemy.defense)
@@ -57,10 +55,12 @@ class Character:
     self.is_dead = True
     return self.is_dead
     
-      
-
 #Player declaration
-player = Character("Player", 5 ,5, 4)
+player = Character("The Wanderer", 5 ,5, 4)
 
 #Enemy declaration
-skeleton = Character("Skeleton", 4 , 5, 3)
+enemies = {
+  "Skeleton" : Character("Skeleton", 3, 5, 3),
+  "Wererat" : Character("Wererat", 4, 6, 2),
+  "Stone Guardian" : Character("Stone Guardian",  5, 6, 4)
+}
