@@ -14,7 +14,8 @@ def start():
     player_choice.lower()
     #Checks value, to apply logic.
     if player_choice == 'y':
-        play(event.intro)
+        #event.intro is the first event. But you can call any node from the choices to test.
+        play(event.skeleton)
     elif player_choice == 'n':
         exit_game()
     else: 
@@ -27,9 +28,10 @@ def play(event_node):
     Main game loop. Display event text, choices, and handle player choices.
     It also handles, damage, heal, and any other event logic.
     """
-    print("""\n[cyan]========================================================================[/ cyan]\n""")
+    print("\n[cyan]========================================================================[/ cyan]\n")
     #Checks for the event type, and handles the logic. If the player isn't dead. Display story text.
     event_handler(event_node)
+
     """
     Display the consequences of choices, and the dialog given to the event. 
     Listens for player choices and return the value selected by the player. 
@@ -42,7 +44,8 @@ def play(event_node):
 
 def event_choices(event_node):
   #Prints the dialog in the node given, in a human like way.
-  slow_print(event_node.text)
+  #slow_print(event_node.text)
+  print(event_node.text)
   #Space for aesthetic purposes.
   print("\n")
   #Iterate over the choices the player can take and addes them to the menu.
@@ -64,6 +67,7 @@ def event_handler(event_node):
   use to handle the events a a more concie maner. It needs a player and
   choices file to read and function.
   """
+  
   #Handle endings for the game. Ensures no options are display after text and ends game.
   if event_node.type_of == "ending":
     print(event_node.text)
@@ -71,9 +75,8 @@ def event_handler(event_node):
 
   #Display the text of a battle between enemy and player
   if event_node.type_of == "battle":
-    for enemy_name in enemies:
-      if event_node.enemy_name == enemy_name:
-        player.battle(enemy_name)
+    enemy_list = enemies
+    player.battle(enemy_list[event_node.enemy_name])
 
   #Handles the consequence of health reduce or gain from choices.
   if event_node.type_of == "healing":

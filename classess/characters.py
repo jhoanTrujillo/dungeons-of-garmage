@@ -42,7 +42,7 @@ class Character:
       damage_dealt = self.calculate_damage(enemy.defense)
       enemy.take_damage(damage_dealt)
       print(f"[yellow]You dealt {damage_dealt} damage[/ yellow]. To the {enemy.name}")
-
+      
       #If enemy is alive calculate damage receive from enemy
       if enemy.health > 0:
           damage_received = enemy.calculate_damage(self.defense)
@@ -51,6 +51,7 @@ class Character:
       #If the enemy is dead it should return a message and break the loop
       else:
         print(f"[green]You defeated the {enemy.name}.[/ Green]Current health: [pink]{self.health}[/pink]")
+        break
     #If the while loop can't be execute that means the player is dead. 
     self.is_dead = True
     return self.is_dead

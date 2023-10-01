@@ -33,62 +33,89 @@ As you try to close the door [red]a giant tongue surrounds you draggin you insid
     "ending"
   )
 
-### Events/story nodes 
-cave = Event(
-  """You ignore the chest and decide to walk towards the door. The creaking of the door
-gives way to a""",
+### Underground path
+cave_b = Event(
+  """You fall into a body of water! sadly, it was painful.
+As you come out of the water you can hear a noise coming from creatures in the cave.
+The torches are getting closer. 
+What would you do?""",
    [
-      ("Fight the skeletons", None),
-      ("Jump down the well", None)
+      ("hold your breath", None),
+      ("Hide into the shadows", None)
     ],
     "damage"
   )
 
-library = Event("""As you enter a huge library full of duty old tomes. 
-the door behind you seals shot! And there isn't much around other than books.
-What would you do?
-""",
+cave_a = Event(
+  """You fall into a body of water! sadly, it was painful.
+As you come out of the water you can hear a noise coming from creatures in the cave.
+The torches are getting closer. 
+What would you do?""",
    [
-      ("Search for an exit", None),
-      ("Look at the book.", None)
-    ],
+      ("hold your breath", None),
+      ("Hide into the shadows", None)
+    ]
   )
 
-post_armory_fight = Event(
-  """You fought bravely, but after your fight you notice more skeletons rising.
-You know endurance will take the best of you, if you keep it up. So you run back towards the library.
-The small black door stands infront of you. What do you do?
+cave = Event(
+  """You fall into a body of water! sadly, it was painful.
+As you come out of the water you can hear a noise coming from creatures in the cave.
+The torches are getting closer. 
+What would you do?""",
+   [
+      ("hold your breath", None),
+      ("Hide into the shadows", None)
+    ],
+    "damage"
+  )
+
+#Inner dungeon path
+
+
+skeleton_fight = Event(
+  """You fought bravely! but after your fight you notice more skeletons start rising.
+You know this fight will take the best of you at this pace.
+What do you do?
 """,
    [
-      ("", None),
+      ("Run to the Library", None),
       ("Jump down the well", None)
     ],
     "battle",
     "Skeleton"
   )
 
-old_armory = Event(
-  """You ignore the chest and decide to walk towards the door. The creaking of the door
-gives way to an old rusted armory with skeletons around. As you step in you see all a skeleton rise.
-What would you do?""",
+skeleton = Event(
+"""After looking around for a bit you found another room. It looks like an armory.
+All the equipment is rusted, and a well seems to be in the middle of the room.
+Some skeletons are in the floor. But it seems like one of them is starting to move!""",
    [
-      ("Fight the skeletons",post_armory_fight),
-      ("Jump down the well", None)
+      ("Fight the skeleton", skeleton_fight),
+      ("Jump down the well", cave)
+    ]
+  )
+
+library = Event(
+  """As you open the door, you look at old dusty tomes, 
+sitting in shelves that reach the roof. Then the door locks behind you! 
+And there isn't much around other than books.""",
+   [
+      ("Search for an exit", skeleton),
+      ("Look at the book.", None)
     ]
   )
 
 treasure_room = Event(
   """You run as fast as you can and listen to the sound of collapsing floor behind you.
-Finally reaching a room with a big treasure chest and a huge door behind it.
-What would you do?:""",
+Finally, you reach with only one treasure chest and a door not far behind it.""",
    [
-      ("Open the door", old_armory),
-      ("Check the treasure chest", mimic_ending)
+      ("Head for the door", library),
+      ("Open the chest", mimic_ending)
     ]
   )
 
 
-#First story event
+#Intro event.
 intro = Event(
   """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses.
 After a moment walking in the corridor you start hearing a unfamiliar noise. 
