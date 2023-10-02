@@ -9,8 +9,9 @@ class Character:
     self.attack = attack
     self.defense = defense
     self.is_dead = False
+    self.items = []
   
-  def calculate_damage(self, enemy_defense):
+  def calculate_battle_damage(self, enemy_defense):
     """
     calculates damage of a battle. 
     """
@@ -18,7 +19,7 @@ class Character:
       return self.attack - enemy_defense
     else:
       return 1
-
+  
   def take_damage(self, damage=1):
     """
     Decrease the health value of the class by one or more if the value 
@@ -41,10 +42,10 @@ class Character:
 
   def do_damage(self, enemy):
     """
-    This method adds damage to the enemy that is given to it based on the calculate_damage
+    This method adds damage to the enemy that is given to it based on the calculate_battle_damage
     method which does a really simple calculation. 
     """
-    damage = self.calculate_damage(enemy.defense)
+    damage = self.calculate_battle_damage(enemy.defense)
     enemy.health -= damage
     #Checks if the entity affected has less or 0 health and sets the total to 0.
     #Also, marks them as dead. The total to 0 ensure the display message don't go to negative values.
@@ -54,6 +55,8 @@ class Character:
 
     return f"[red bold]{enemy.name} took {damage}. Current Health: { enemy.health }[/red bold]."
 
+  def add_item(self, item_name):
+    pass
 #Player declaration
 player = Character("Player", 5 ,5, 4)
 
