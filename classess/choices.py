@@ -14,8 +14,8 @@ class Event:
   with the name of an enemy from the enemies dic in characters.py.
   reward: Just like the battle category, you should provide an string with the name of the 
   item you would like to append to the player items.
-  alternative: Alternative routes that trigger if the name of an item is found in the string given
-  in the requirement
+  alternative: in addition you should provide an array with two objects, and string and another
+  array that follows the same format as other choices.
   """
   def __init__(self):
     self.text = ""
@@ -52,6 +52,7 @@ library = Event()
 pythonmancer = Event()
 armory = Event()
 skeleton_fight = Event()
+
 
 #Underground path
 cave = Event()
@@ -113,8 +114,6 @@ they look at each other and shrug.""",
   ]
 )
 
-
-
 #Inner dungeon path
 treasure_room.add_values(
   """You run as fast as you can and listen to the sound of collapsing floor behind you.
@@ -155,11 +154,11 @@ Some skeletons are in the floor. But it seems like one of them is starting to mo
 
 pythonmancer.add_values("""Between the hundreds of books, annexed in the walls of the library 
 You find a book called 'Modern Guide To Pythonmancy', and put it in your bag. 
-Then as you look around there is a small black door, and something compels you to go throught it.
+Then as you look around there is a small black door, and a big old wooden door.
 """,
   [
-    ("", None),
-    ("", None)
+    ("Go throught the wooden door", armory),
+    ("Go throught the small black door", )
   ],
   "reward",
   "pythonmancer"

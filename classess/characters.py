@@ -59,7 +59,17 @@ class Character:
     self.items.append(item_name)
     print(str(self.items))
 
-  
+def use_item(self, event_node):
+  #goes over the items in the player item list
+  for item in self.items:
+    #if the item match the name of the string in the position 0 of the event_node requirements array
+    if item == event_node.requirements[0]:
+      #Then remove item from array
+      self.items.remove(item)
+      #And add the option given in the last position. Which should always be the second position.
+      event_node.add_option(event_node.requirements[-1])
+    
+    return f"An alternative route has open due to an item: {item}"
     
 #Player declaration
 player = Character("Player", 5 ,5, 4)

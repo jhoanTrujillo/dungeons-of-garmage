@@ -89,6 +89,9 @@ def event_handler(event_node):
   if event_node.category == "reward": 
      player.add_item(event_node.requirement)
 
+  if event_node.category == "alternative":
+     player.use_item(event_node)
+
   if event_node.category == "heal":
     #Handles the consequence of health reduce or gain from choices.
     healing = player.restore_damage()
