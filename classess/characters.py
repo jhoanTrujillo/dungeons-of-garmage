@@ -53,7 +53,7 @@ class Character:
       enemy.health = 0
       enemy.is_dead = True
 
-    return f"[red bold]{enemy.name} took {damage}. Current Health: { enemy.health }[/red bold]."
+    return f"[red bold]{enemy.name} took {damage}. Leaving it with {enemy.health} health.[/red bold]"
 
   def add_item(self, item_name):
     pass

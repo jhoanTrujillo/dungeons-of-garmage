@@ -23,7 +23,7 @@ def start():
         For testing purpoe the intro object name can be change to any other node in the 
         choices module inside the classess folder
         """
-        play(event.intro)
+        play(event.library)
     elif player_choice == 'n':
         exit_game()
     else: 
@@ -109,7 +109,7 @@ def battle(player, enemy):
           print(enemy_attack)
       #This breaks the loop if the enemy is_dead status is true
       else:
-        print(f"[green]You defeated the {enemy.name}.[/ Green][pink]Current health: {player.health}[/pink]")
+        slow_print(f"You defeated the {enemy.name}. Current health: {player.health}")
         #IMPORTANT: ensures the while loop stops when the enemy is defeated.
         break
     else:

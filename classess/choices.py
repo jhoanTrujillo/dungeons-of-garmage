@@ -35,6 +35,7 @@ class Event:
 intro = Event()
 #Dungeon Path
 treasure_room = Event()
+
 #mimic ending is part of this path
 library = Event()
 pythonmancer = Event()
@@ -43,8 +44,13 @@ skeleton_fight = Event()
 
 #Underground path
 cave = Event()
+
 hold_breath = Event()
 hide_in_shadows = Event()
+
+interact_with_dwellers = Event()
+sneak_from_dwellers = Event()
+hostile_towards_dwellers = Event()
 
 #Endings
 mimic_ending = Event()
@@ -52,44 +58,51 @@ dead_by_battle = Event()
 
 #Intro add_values.
 intro.add_values(
-  """As the gate cracks open, a musty smell and a dimly lit corridor greet your senses.
-After a moment walking in the corridor you start hearing a unfamiliar noise. 
-What would you do?""",
+  """The unwelcoming smell of dust, and mould is in the air of a dimly.
+As you make your way throught the hallway you start to hear a unfamiliar noise.
+What would you do?
+  """,
   [
-    ("Run, as fast as possible!", treasure_room),
-    ("Locate the sound's location", cave)
+    ("Run forward!", treasure_room),
+    ("Analyse the sound", cave)
   ]
 )
 
 ### Underground path
 cave.add_values(
-  """You fall into a body of water! sadly, it was painful.
-As you come out of the water you can hear a noise coming from creatures in the cave.
-The torches are getting closer. 
-What would you do?""",
+  """You fell down a dark abyss. Eventually landing in a body of water.
+  As you emerge you can hear creatures in the distance and the darkness gives way
+  to the dim light of torches approaching.""",
   [
-    ("hold your breath", None),
-    ("Hide into the shadows", None)
+    ("hold your breath", hold_breath),
+    ("Hide into the shadows", hide_in_shadows)
   ],
   "damage"
 )
 
 hold_breath.add_values(
-  """""",
+  """As you hold your breath you start to heal, Thanks to the magic of the spring.
+Of course, breathing is still an issue, so as you re-surface.
+small fluffy cave dwellers look at you in awe. 
+""",
   [
-    ("hold your breath", None),
-    ("Hide into the shadows", None)
+    ("*yell* I'm that who reigns in the depths", interact_with_dwellers),
+    ("Leave water, and punch a dweller", hostile_towards_dwellers)
   ],
   "healing"
 )
 
 hide_in_shadows.add_values(
-  """""",
+  """You leave the water and hide in the shadows, and between rocks.
+You notice small fluffy creatures with little torches approaching the body of water,
+they look at each other and shrug.""",
   [
-    ("hold your breath", None),
-    ("Hide into the shadows", None)
+    ("Sneak about from the creatures", sneak_from_dwellers),
+    ("Show yourself, ...Hello?.", interact_with_dwellers)
   ]
 )
+
+
 
 #Inner dungeon path
 treasure_room.add_values(
@@ -145,7 +158,7 @@ What do you do?
 """,
   [
     ("Run to the Library", None),
-    ("Jump down the well", None)
+    ("Jump down the well", Cave)
   ],
   "battle",
   "Skeleton"
