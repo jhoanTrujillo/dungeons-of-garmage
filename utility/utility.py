@@ -81,11 +81,16 @@ def event_handler(event_node):
     enemy_list = enemies
     #Since modules are unable to accept dot notation with variables holding strings. 
     #I'm using the array below and the .enemy_name string from the event node.
-    enemy = enemy_list[event_node.enemy_name]
+    enemy = enemy_list[event_node.requirement]
     #Then we call the battle function
     battle(player, enemy)
-  #Handles the consequence of health reduce or gain from choices.
-  if event_node.category == "healing":
+
+  #adds the item given to the event_node requirements
+  if event_node.category == "reward": 
+     player.add_item(event_node.requirement)
+
+  if event_node.category == "heal":
+    #Handles the consequence of health reduce or gain from choices.
     healing = player.restore_damage()
     print(healing)
   elif event_node.category == "damage":

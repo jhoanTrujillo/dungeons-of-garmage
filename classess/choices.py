@@ -6,29 +6,30 @@ class Event:
   categoryf only need to be added when the event has consequences. It can take the strings:
   battle, heal, damage, ending.
 
-  The types of events that a class can be are:
+  The types of events that a class can be are:    
 
-  battle: triggers a battle needs to take an enemy name and enemy name has to be declare in 
-  character.py enemies dictionary.
   damage: damages the player by 1
   heal: heals the character by 1
-  reward: gives item.
-  alternative: will instantly add a different third-route to an option.
-
+  battle: triggers the battle function in the utility.py. The requirement should be an string
+  with the name of an enemy from the enemies dic in characters.py.
+  reward: Just like the battle category, you should provide an string with the name of the 
+  item you would like to append to the player items.
+  alternative: Alternative routes that trigger if the name of an item is found in the string given
+  in the requirement
   """
   def __init__(self):
     self.text = ""
     self.options = []
     self.category = ""
-    self.enemy_name = ""
+    self.requirement = ""
   
-  def add_values(self, text, options,category="", enemy_name=""):
+  def add_values(self, text, options,category="", requirement=""):
     #Always provide text to display the players.
     self.text = text
     #Needs at least an empty array.
     self.options = options
     self.category = category
-    self.enemy_name = enemy_name
+    self.requirement = requirement
     
   def add_option(self, option , next_node):
       """
@@ -81,8 +82,8 @@ What would you do?
 ### Underground path
 cave.add_values(
   """You fell down a dark abyss. Eventually landing in a body of water.
-  As you emerge you can hear creatures in the distance and the darkness gives way
-  to the dim light of torches approaching.""",
+As you emerge you can hear creatures in the distance and the darkness gives way
+to the dim light of torches approaching.""",
   [
     ("hold your breath", hold_breath),
     ("Hide into the shadows", hide_in_shadows)
@@ -153,12 +154,15 @@ Some skeletons are in the floor. But it seems like one of them is starting to mo
 )
 
 pythonmancer.add_values("""Between the hundreds of books, annexed in the walls of the library 
-You find a book called pythonmancer and store it in your backpack.
+You find a book called 'Modern Guide To Pythonmancy', and put it in your bag. 
+Then as you look around there is a small black door, and something compels you to go throught it.
 """,
   [
-    ("", ),
-    ("",)
-  ]
+    ("", None),
+    ("", None)
+  ],
+  "reward",
+  "pythonmancer"
 )
 
 skeleton_fight.add_values(
@@ -168,7 +172,7 @@ What do you do?
 """,
   [
     ("Run to the Library", None),
-    ("Jump down the well", Cave)
+    ("Jump down the well", cave)
   ],
   "battle",
   "Skeleton"

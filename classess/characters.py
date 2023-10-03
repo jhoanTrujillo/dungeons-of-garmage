@@ -56,7 +56,11 @@ class Character:
     return f"[red bold]{enemy.name} took {damage}. Leaving it with {enemy.health} health.[/red bold]"
 
   def add_item(self, item_name):
-    pass
+    self.items.append(item_name)
+    print(str(self.items))
+
+  
+    
 #Player declaration
 player = Character("Player", 5 ,5, 4)
 
