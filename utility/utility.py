@@ -72,11 +72,11 @@ def event_handler(event_node):
   """
   
   #Handle endings for the game. Ensures no options are display after text and ends game.
-  if event_node.type_of == "ending":
+  if event_node.category == "ending":
     print(event_node.text)
     exit_game()
   #Display the text of a battle between enemy and player
-  if event_node.type_of == "battle":
+  if event_node.category == "battle":
     #We refer to the enemis array 
     enemy_list = enemies
     #Since modules are unable to accept dot notation with variables holding strings. 
@@ -85,10 +85,10 @@ def event_handler(event_node):
     #Then we call the battle function
     battle(player, enemy)
   #Handles the consequence of health reduce or gain from choices.
-  if event_node.type_of == "healing":
+  if event_node.category == "healing":
     healing = player.restore_damage()
     print(healing)
-  elif event_node.type_of == "damage":
+  elif event_node.category == "damage":
     damage = player.take_damage()
     print(damage)
 

@@ -3,21 +3,31 @@ class Event:
   This is a class to construct event nodes which are contain the 
   content of the story, the options presented, and the type of event.
 
-  type_off only need to be added when the event has consequences. It can take the strings:
-  battle, healing, damage, ending.
+  categoryf only need to be added when the event has consequences. It can take the strings:
+  battle, heal, damage, ending.
+
+  The types of events that a class can be are:
+
+  battle: triggers a battle needs to take an enemy name and enemy name has to be declare in 
+  character.py enemies dictionary.
+  damage: damages the player by 1
+  heal: heals the character by 1
+  reward: gives item.
+  alternative: will instantly add a different third-route to an option.
+
   """
   def __init__(self):
     self.text = ""
     self.options = []
-    self.type_of = ""
+    self.category = ""
     self.enemy_name = ""
   
-  def add_values(self, text, options,type_of="", enemy_name=""):
+  def add_values(self, text, options,category="", enemy_name=""):
     #Always provide text to display the players.
     self.text = text
     #Needs at least an empty array.
     self.options = options
-    self.type_of = type_of
+    self.category = category
     self.enemy_name = enemy_name
     
   def add_option(self, option , next_node):
@@ -89,7 +99,7 @@ small fluffy cave dwellers look at you in awe.
     ("*yell* I'm that who reigns in the depths", interact_with_dwellers),
     ("Leave water, and punch a dweller", hostile_towards_dwellers)
   ],
-  "healing"
+  "heal"
 )
 
 hide_in_shadows.add_values(
