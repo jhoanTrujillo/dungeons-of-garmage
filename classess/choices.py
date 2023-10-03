@@ -38,28 +38,28 @@ class Event:
       """
       self.options.append((option, next_node)) 
 
-################################
-####     Story nodes        ####
-################################
+#####################################
+####   Story nodes declaration   ####
+#####################################
 
 #defining all the events as empty class
 intro = Event()
 #Dungeon Path
 treasure_room = Event()
-
 #mimic ending is part of this path
 library = Event()
-pythonmancer = Event()
 armory = Event()
 skeleton_fight = Event()
-
+pythonmancer = Event()
+temple = Event()
+heretic_slayer = Event()
+cosplayer = Event()
+trickster = Event()
 
 #Underground path
 cave = Event()
-
 hold_breath = Event()
 hide_in_shadows = Event()
-
 interact_with_dwellers = Event()
 sneak_from_dwellers = Event()
 hostile_towards_dwellers = Event()
@@ -67,6 +67,7 @@ hostile_towards_dwellers = Event()
 #Endings
 mimic_ending = Event()
 dead_by_battle = Event()
+lamb = Event()
 
 #Intro add_values.
 intro.add_values(
@@ -158,7 +159,7 @@ Then as you look around there is a small black door, and a big old wooden door.
 """,
   [
     ("Go throught the wooden door", armory),
-    ("Go throught the small black door", )
+    ("Go throught the small black door", temple)
   ],
   "reward",
   "pythonmancer"
@@ -170,17 +171,58 @@ You know this fight will take the best of you at this pace.
 What do you do?
 """,
   [
-    ("Run to the Library", None),
+    ("Run to the Library", temple),
     ("Jump down the well", cave)
   ],
   "battle",
   "Skeleton"
 )
 
+temple.add_values(
+  """You run towards your next location, and locking the black door behind you.
+This gives way to a temple of sort, and in there a group of cultist praying to an unknown god.
+unnused robes are around you, but other then that the only exist is behind the priest.
+What do you do?
+""",
+  [
+    ("Stop this heresy!", heretic_slayer),
+    ("Wear the robe and join the cultist", cosplayer)
+  ]
+)
+
+cosplayer.add_values(
+  """You wear the robes of a cultist and join their prayer. 
+The priest mentions a sacrifice, and ask the congregation to gather around.
+You do and the a symbol in the floor gives way to an unholy void, which what looks
+like a giant hand uses to come out, and search around for it's sacrifice getting close to you.
+""",
+  [
+    ("Slightly push the person next to you", None),
+    ("Give yourself to the entity", lamb)
+  ]
+)
+
+trickster.add_values(
+  """
+""",
+  [
+    ("Slightly push the person next to you", None),
+    ("Give yourself to the entity", lamb)
+  ]
+)
+
 ### Endings
 dead_by_battle.add_values(
    """You fought with all your might, but might alone won't save a lost soul.
 [red3]You fell in combat like hundreds of other adventurers seeking greatness[/ red3].""",
+[],
+"ending"
+)
+
+lamb.add_values(
+   """You give yourself to the command of [dark_green]XGUHXZ<0[/ dark_green], the caller.
+[red3]You can feel the warm of his embrace, as you traverse the void.[/ red3] This is the end
+of your journey, but it feels right.""",
 [],
 "ending"
 )
