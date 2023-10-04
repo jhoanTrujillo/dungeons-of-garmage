@@ -7,8 +7,9 @@ Developed by: Jhoan Trujillo
 **"Dungeons of Garmage"** is a choose-your-own-adventure game that transports players to a fictional dungeon in a strange fantasy land. Players become immersed in a sense of dread and adventure, and are provided with the ability to choose their own path in the game. The idea is for players to select between various choices presented by the game, leading to different endings based on their decisions.
 
 ## Table of Content
+
 1. Project Goals
-  - User Goals 
+  - User Goals
   - Site Owner Goals
 2. User Experience
   - Target Audience
@@ -16,9 +17,10 @@ Developed by: Jhoan Trujillo
   - Players
 3. Design
   - Design Choices
-  - Technologies use 
+  - Technologies Use
+  - Features
   - Code Design Choices
-4. deployment
+4. Deployment
   - Version Control
   - Heroku Deployment
 5. Credits
@@ -30,7 +32,9 @@ As a user I expect:
 
 - **Immersive Experience**: A storytelling adventure that allows me to immerse myself in the world of Garmage, providing challenges and consequences for my choices, adding weight to my gameplay.
 - **User-Friendly Interface**: An easily navigable game with intuitive controls. The language used should be clear and understandable, and information displays should be concise and straightforward
-- **Quick Gameplay Sessions**: I anticipate being able to pick up and play the game in short, concise sessions, that allow me to .
+- **Quick Gameplay Sessions**: I anticipate being able to pick up and play the game in short, concise sessions, that allow me to.
+
+[Back to table of content](#table-of-content)
 
 ### Site Owner's Objectives
 As the site owner, my goal is to offer players an engaging and captivating gaming experience by: 
@@ -46,8 +50,9 @@ As the site owner, my goal is to offer players an engaging and captivating gamin
 ### Target Audience
 The target audience for the budget tracker application includes a diverse range of individuals who are interested in managing their personal finances more effectively.
 
+[Back to table of content](#table-of-content)
+
 ### User Stories
-Here are the Users stories which can also be found here on the project Kanban board:
 
 ### Players
 - **As a user** I can pick the game for a quick run, whenever I have a couple of minutes.
@@ -57,10 +62,28 @@ Here are the Users stories which can also be found here on the project Kanban bo
 - **As a user** I can experience different outcomes based on my choices in any given game run.
 - **As a user** I want the formatting of the text to provide key insight into any game event.
 
+[Back to table of content](#table-of-content)
+
 ## 3. Design
 
 ### Design Choices
 This project was design to work with terminal, as such, the choice of style was limited, but I used the Rich a python module to provide as much context in the events of the game via text formatting. That way I can share a feeling with the player by using text formatting alone.
+
+[Back to table of content](#table-of-content)
+
+### Techonologies Used
+This project uses the following tech stack:
+
+- Python
+- JS (Node.js)
+- HTML
+- CSS
+
+[Back to table of content](#table-of-content)
+
+### Features
+
+[Back to table of content](#table-of-content)
 
 ## 4. Deployment
 
@@ -73,6 +96,8 @@ The workflow follow to upload the project to github was simple. Just using the c
 - git add - To stage the changes.
 - git commit -m "<\type>[optional scope]: <\description>" - To add a message and commit the changes to be pushed.
 - git push - Lastly, push command to send the changes to our github repo. 
+
+[Back to table of content](#table-of-content)
 
 ### Heroku
 Heroku, is the **PaaS** (Platform as a service) of choice for this project. To deploy the project below 
@@ -91,14 +116,18 @@ Lastly, you can install this project's requirements by using: pip3 install -r re
 
 The **Procfile** can be created with the following command: echo web: node index.js > Procfile
 
+[Back to table of content](#table-of-content)
+
 ## 5. Credits 
 
 ## Resources
+This are the resources I used externally from other sites such as stack overflow, ASCII TODAY, pipreqs:
+
+- The following [stackoverflow code](https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing) was used for the slow_print function.
+- [Pipreqs](https://pypi.org/project/pipreqs/) was used to create a requirement file that uses local file modules to create the requirements.txt file. 
+- [ASCII TODAY](https://ascii.today/) - is a fast title generator that converts text to ASCII 
 
 ### Modules
 Below you can find all the external modules use in the project.
 
 - [Rich - a Python library for rich text and beautiful formatting in the terminal](https://github.com/Textualize/rich)
-- The following [stackoverflow code](https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing) was used for the slow_print function.
-- [Pipreqs](https://pypi.org/project/pipreqs/) was used to create a requirement file that uses local file modules to create the requirements.txt file. 
-- [ASCII TODAY](https://ascii.today/) - is a fast title generator that converts text to ASCII 

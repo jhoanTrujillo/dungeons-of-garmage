@@ -51,10 +51,6 @@ library = Event()
 armory = Event()
 skeleton_fight = Event()
 pythonmancer = Event()
-temple = Event()
-heretic_slayer = Event()
-cosplayer = Event()
-trickster = Event()
 
 #Underground path
 cave = Event()
@@ -63,11 +59,27 @@ hide_in_shadows = Event()
 interact_with_dwellers = Event()
 sneak_from_dwellers = Event()
 hostile_towards_dwellers = Event()
+undertown = Event()
+
+#temple (last event for both path)
+temple = Event()
+heretic_slayer = Event()
+cosplayer = Event()
+trickster = Event()
+the_pythonmancer = Event()
+
+#Boss scenes
+the_hand = Event()
+the_hand_weaken = Event()
 
 #Endings
 mimic_ending = Event()
 dead_by_battle = Event()
 lamb = Event()
+priest_of_hold = Event()
+vanquisher = Event()
+the_coward = Event()
+
 
 #Intro add_values.
 intro.add_values(
@@ -110,9 +122,34 @@ hide_in_shadows.add_values(
 You notice small fluffy creatures with little torches approaching the body of water,
 they look at each other and shrug.""",
   [
-    ("Sneak about from the creatures", sneak_from_dwellers),
+    ("Sneak around from the creatures", sneak_from_dwellers),
     ("Show yourself, ...Hello?.", interact_with_dwellers)
   ]
+)
+
+interact_with_dwellers.add_values(
+   """The creatures laugh, and start mimicking you. Some of them are facinanted,
+the others are talking between each other and then, what seems to be the leader
+points towards the path behind them.
+""",
+  [
+    ("Follow the fluffy dwellers", None ),
+    ("Show yourself, ...Hello?.", interact_with_dwellers)
+  ]
+)
+
+undertown.add_values(
+   """After some rest in the Dwellers village, you are ready to go.
+As you stand infront of a stone staircase which split into two ways. leading back to the dungeon. 
+the dwellers hand you a sword. Too big for the little creatures, but perfect for your journey ahead.
+What do you do?
+""",
+  [
+    ("Take the right path", None),
+    ("Take the left path", None)
+  ], 
+  "reward", 
+  "Excalibur"
 )
 
 #Inner dungeon path
@@ -162,7 +199,7 @@ Then as you look around there is a small black door, and a big old wooden door.
     ("Go throught the small black door", temple)
   ],
   "reward",
-  "pythonmancer"
+  "Modern Guide To Pythonmancy"
 )
 
 skeleton_fight.add_values(
@@ -189,40 +226,99 @@ What do you do?
     ("Wear the robe and join the cultist", cosplayer)
   ]
 )
-
+#Wear the robe and join the cultist circle
 cosplayer.add_values(
   """You wear the robes of a cultist and join their prayer. 
 The priest mentions a sacrifice, and ask the congregation to gather around.
-You do and the a symbol in the floor gives way to an unholy void, which what looks
-like a giant hand uses to come out, and search around for it's sacrifice getting close to you.
+You do and the a symbol in the floor opens a void into the floor and a giant hand comes out.
+The hand seems to be looking for something to grab.
 """,
   [
-    ("Slightly push the person next to you", None),
-    ("Give yourself to the entity", lamb)
+    ("Push the cultist next to you, towards the hand", trickster),
+    ("Give yourself to the hand. The hand loves you", lamb)
+  ], 
+  "alternative",
+  [
+    "Modern Guide To Pythonmancy",
+    ("Cast your pythonmancer spell", the_pythonmancer)
+  ]
+)
+#when the player uses the pythonmancy spell book on the cultist
+the_pythonmancer.add_values(
+     """You uses your power and just like that anacondas and pythons jump at the enemy.
+The Hand is weakend, the cultist are unconsious, and the priest ran through the door behidn. 
+The Hand feels, you and it is ready to take you on.
+""",
+  [
+    ("Claim the glory!", the_hand_weaken),
+    ("Take what you can and run away!", the_coward)
   ]
 )
 
+#Push the cultist next to you.
 trickster.add_values(
-  """
+  """\"What did you do? That was steve! we can\'t force our chocice on The Hand!\", said the priest, as he put his crown away,
+  and started to run. [purple]The Hand[/purple] is out of control, throwing and hitting cultist around.
 """,
   [
-    ("Slightly push the person next to you", None),
-    ("Give yourself to the entity", lamb)
+    ("I...Have to (fight The Hand)", the_hand),
+    ("I...Have to (Sacrifice yourself)", lamb)
   ]
+)
+
+#After defeating the weaken hand using the pythonmancer book, the evil ending is unlock. 
+#Not all easy endings are good.
+the_hand_weaken.add_values("""You [red]slayed The hand[/ red], and wear the crown of thorns left behind by the priest.
+  The calling is too strong, this is what you always wanted. Your mind is beginning to falter... 
+  Would you accept the offer of The Hand? 
+  """,
+  [
+    ("", ),
+    ("", )
+  ],
+  "battle",
+  "The hand weaken"
 )
 
 ### Endings
-dead_by_battle.add_values(
-   """You fought with all your might, but might alone won't save a lost soul.
-[red3]You fell in combat like hundreds of other adventurers seeking greatness[/ red3].""",
-[],
-"ending"
+dead_by_battle.add_values("""You fought with all your might, but might alone won't save a lost soul.
+  [red3]You fell in combat like hundreds of other adventurers seeking greatness[/ red3].""",
+  [],
+  "ending"
 )
 
-lamb.add_values(
-   """You give yourself to the command of [dark_green]XGUHXZ<0[/ dark_green], the caller.
-[red3]You can feel the warm of his embrace, as you traverse the void.[/ red3] This is the end
-of your journey, but it feels right.""",
-[],
-"ending"
+lamb.add_values("""You give yourself to the command of [purple]The Hand[/ purple].
+  [red3]You can feel the warm of its embrace, as you traverse the void.[/ red3] This is the end
+  of your journey, but it feels right.""",
+  [],
+  "ending"
+)
+
+#Chaotic Ending 
+the_coward.add_values(
+   """You take all you can, all the gold, silver, and even copper. All in your bag.
+   Nor [purple]The Hand[/purple] or the [purple]cultist[/purple] had enough time to see you go. 
+   You are far from everything and between the crevices of the caves in the underground you see a light,
+   a light back to Garmage. [pink]Congratulations, you get to live another day![/ pink]
+""",
+  [],
+  "ending"
+)
+
+#Evil Ending
+priest_of_hold.add_values("""With your crown of thorns, and your throne as [purple]The Hand[/purple], you are the new,
+  undisputed [bold purple]master priest of The church of hold[/ bold purple]. May Garmage sleep well
+  one last night, because your reign of evil starts here.
+  """,
+  [],
+  "ending"
+)
+
+#Hero Ending
+vanquisher.add_values( """With the power of [yellow]Excalibur[/ yellow] you break the hold of evil in your mind.
+  and the light of the sword, incinarates all evil infront of you, from the [purple]cultist[/ purple], to [red]The Hand[red],
+  They are all but burnt marks on the ground. You are [bold yellow]The Paladin of Light[/bold yellow], Bringing Garmage to a new age of peace.
+  """,
+  [],
+  "ending"
 )

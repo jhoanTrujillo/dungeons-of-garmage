@@ -56,20 +56,21 @@ class Character:
     return f"[red bold]{enemy.name} took {damage}. Leaving it with {enemy.health} health.[/red bold]"
 
   def add_item(self, item_name):
+    #Append string with item name to the items array 
     self.items.append(item_name)
-    print(str(self.items))
+    return f"[green]you gain { item_name }[/green]"
 
-def use_item(self, event_node):
-  #goes over the items in the player item list
-  for item in self.items:
-    #if the item match the name of the string in the position 0 of the event_node requirements array
-    if item == event_node.requirements[0]:
-      #Then remove item from array
-      self.items.remove(item)
-      #And add the option given in the last position. Which should always be the second position.
-      event_node.add_option(event_node.requirements[-1])
-    
-    return f"An alternative route has open due to an item: {item}"
+  def use_item(self, event_node):
+    node_options = event_node
+
+    #goes over the items in the player item list
+    for item in self.items:
+      #if the item match the name of the string in the position 0 of the event_node requirements array
+      if item == node_options.requirement[0]:
+        #And add the option given in the last position. Which should always be the second position.
+        node_options.add_option(node_options.requirement[-1][0], node_options.requirement[-1][-1]) 
+      
+      return f"An alternative route has open due to an item: {item}"
     
 #Player declaration
 player = Character("Player", 5 ,5, 4)
@@ -77,6 +78,8 @@ player = Character("Player", 5 ,5, 4)
 #Enemy declaration
 enemies = {
   "Skeleton" : Character("Skeleton", 5, 5, 2),
-  "Wererat" : Character("Wererat", 4, 6, 2),
-  "Stone Guardian" : Character("Stone Guardian",  5, 6, 4)
+  "Dweller" : Character("Dweller", 4, 6, 2),
+  "Priest" : Character("Priest",  3, 3, 2),
+  "The hand" : Character("The Hand",  6, 6, 4),
+  "The hand weaken" : Character("The Hand",  3, 2,2),
 }

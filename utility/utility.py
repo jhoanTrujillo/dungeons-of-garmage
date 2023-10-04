@@ -70,27 +70,28 @@ def event_handler(event_node):
   use to handle the events a a more concie maner. It needs a player and
   choices file to read and function.
   """
-  
   #Handle endings for the game. Ensures no options are display after text and ends game.
   if event_node.category == "ending":
     print(event_node.text)
     exit_game()
+
   #Display the text of a battle between enemy and player
   if event_node.category == "battle":
-    #We refer to the enemis array 
+    #Calling the enemies array in here to easily instanciate the appropriate enemy,
+    #by simply providing a value in the event itself with its name.
     enemy_list = enemies
-    #Since modules are unable to accept dot notation with variables holding strings. 
-    #I'm using the array below and the .enemy_name string from the event node.
     enemy = enemy_list[event_node.requirement]
     #Then we call the battle function
     battle(player, enemy)
 
   #adds the item given to the event_node requirements
   if event_node.category == "reward": 
-     player.add_item(event_node.requirement)
-
+    EARNED_ITEM = player.add_item(event_node.requirement)
+    print(EARNED_ITEM)
+  
   if event_node.category == "alternative":
-     player.use_item(event_node)
+    #Will check if the name of the item provided matches an item in the inventory
+    player.use_item(event_node)
 
   if event_node.category == "heal":
     #Handles the consequence of health reduce or gain from choices.
