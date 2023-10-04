@@ -268,16 +268,19 @@ trickster.add_values(
 
 #After defeating the weaken hand using the pythonmancer book, the evil ending is unlock. 
 #Not all easy endings are good.
-the_hand_weaken.add_values("""You [red]slayed The hand[/ red], and wear the crown of thorns left behind by the priest.
-  The calling is too strong, this is what you always wanted. Your mind is beginning to falter... 
-  Would you accept the offer of The Hand? 
-  """,
+the_hand_weaken.add_values(
+"""You [red]slayed The hand[/ red], and wear the crown of thorns left behind by the priest.
+The calling is too strong, this is what you always wanted. Your mind is beginning to falter... 
+Would you accept the offer of The Hand? 
+""",
   [
-    ("", ),
-    ("", )
+    ("I'M YOUR MASTER NOW", priest_of_hold),
   ],
-  "battle",
-  "The hand weaken"
+  "alternative",
+  [
+    "Excalibur",
+    ("BEGONE EVILDOERS!", vanquisher)
+  ]
 )
 
 ### Endings
@@ -316,9 +319,9 @@ priest_of_hold.add_values("""With your crown of thorns, and your throne as [purp
 
 #Hero Ending
 vanquisher.add_values( """With the power of [yellow]Excalibur[/ yellow] you break the hold of evil in your mind.
-  and the light of the sword, incinarates all evil infront of you, from the [purple]cultist[/ purple], to [red]The Hand[red],
-  They are all but burnt marks on the ground. You are [bold yellow]The Paladin of Light[/bold yellow], Bringing Garmage to a new age of peace.
-  """,
+and the light of the sword, incinarates all evil infront of you, from the [purple]cultist[/ purple], to [red]The Hand[red],
+They are all but burnt marks on the ground. You are [bold yellow]The Paladin of Light[/bold yellow], Bringing Garmage to a new age of peace.
+""",
   [],
   "ending"
 )
