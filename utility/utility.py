@@ -27,7 +27,7 @@ def start():
     elif player_choice == 'n':
         exit_game()
     else: 
-       print("[red ]Enter \"y\" to [bold]play[/ bold] or \"n\" to [bold]exit[/ bold].[/ red bold]")
+       print("[red]Enter 'y' to [bold]play[/bold] or 'n' to [bold]exit[/ bold].[/ red]")
        start()
 
 def play(event_node):
