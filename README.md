@@ -52,8 +52,6 @@ The target audience for the budget tracker application includes a diverse range 
 
 [Back to table of content](#table-of-content)
 
-### User Stories
-
 ### Players
 - **As a user** I can pick the game for a quick run, whenever I have a couple of minutes.
 - **As a user** I can make choices that will hold weight on the game narrative.
@@ -95,6 +93,12 @@ that way the event parser can apply the logic to the event appropriately.
 - Routes: Routes are simple, they are split between two to keep the story moving and avoid choice paralyzis.
 - Battle: The battle when over a couple of ideas in the whiteboard. Firstly, it was intended to provide the player with choices to fight, but then I realized that would take away from the narrative, so I added a quick resolution to combat which autoplays and provide an outcome. The latest version only allows for text to be displayed, and for the damage to be auto calculated.
 - Item interactions: Items are simply added to an array and then the utility file has the event_handler function which checks the type of event and handles the logic needed to make the event act as expected.
+
+[Back to table of content](#table-of-content)
+
+### Flowchart of behavior
+
+![flowchart of features and behavioours](https://github.com/jhoanTrujillo/dungeons-of-garmage-pp3/repo_images/flowchart.png)
 
 [Back to table of content](#table-of-content)
 
@@ -155,6 +159,7 @@ This are the resources I used externally from other sites such as stack overflow
 - The following [stackoverflow code](https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing) was used for the slow_print function.
 - [Pipreqs](https://pypi.org/project/pipreqs/) was used to create a requirement file that uses local file modules to create the requirements.txt file. 
 - [ASCII TODAY](https://ascii.today/) - is a fast title generator that converts text to ASCII 
+- [diagrams.net](https://app.diagrams.net/) - free diagram maker tool
 
 ### Modules
 Below you can find all the external modules use in the project.
