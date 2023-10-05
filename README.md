@@ -3,7 +3,8 @@ The project was deployed at the following link - [Dungeons of Garmage]()
 
 Developed by: Jhoan Trujillo
 
-## Introduction 
+## Introduction 
+
 **"Dungeons of Garmage"** is a choose-your-own-adventure game that transports players to a fictional dungeon in a strange fantasy land. Players become immersed in a sense of dread and adventure, and are provided with the ability to choose their own path in the game. The idea is for players to select between various choices presented by the game, leading to different endings based on their decisions.
 
 ## Table of Content
