@@ -1,4 +1,4 @@
-import sys,time,random
+import sys, time, random
 import classess.choices as event
 from classess.characters import player, enemies
 from rich import print
@@ -16,7 +16,7 @@ def start():
         """The play function should start with event.intro on production.
         For testing purpoe the intro object name can be change to any
         other node in the choices module inside the classess folder"""
-        play(event.library)
+        play(event.intro)
     elif player_choice == 'n':
         exit_game()
     else:
@@ -29,7 +29,9 @@ def play(event_node):
     Main game loop. Display event text, choices, and handle player choices
     It also handles, damage, heal, and any other event logic
     """
-    print("\n[cyan]================================================[/ cyan]\n")
+    print("\n")
+    print("[green]==============================================[/green]")
+    print("\n")
     # Checks for the event type, and handles the logic.
     # If the player isn't dead. Display story text.
     event_handler(event_node)
@@ -38,6 +40,9 @@ def play(event_node):
     Listens for player choices and return the value selected by the player.
     It also allows player to end the game.
     """
+    print(event_node.text)
+    # Space for aesthetic purposes.
+    print("\n")
     choice = event_choices(event_node)
     # Uses the choice variable to select the next node that will be display.
     next_node = event_node.options[choice - 1][1]
@@ -45,20 +50,16 @@ def play(event_node):
 
 
 def event_choices(event_node):
-    # Prints the dialog in the node given, in a human like way.
-    # slow_print(event_node.text)
-    print(event_node.text)
-    # Space for aesthetic purposes.
-    print("\n")
     # Iterate over the choices the player can take and addes them to the menu.
     for i, (option, _) in enumerate(event_node.options, 1):
         slow_print(f"{i}. {option}")
         # Checks choice type
-        try:
-            choice = int(input("""\nEnter (1 or 2) for your choice,
-            or enter any other value to exit: \n"""))
-        except ValueError:
-            exit_game()
+    try:
+        #String too long  for ID but unable 
+        choice = input("Enter (1 or 2) or enter any other value to exit:\n")
+        choice = int(choice)
+    except ValueError:
+        exit_game()
     return choice
 
 
@@ -99,7 +100,7 @@ def battle(player, enemy):
     calculation between the enemy and the player
     """
     # If the player is not dead. Do:
-    if player.is_dead is False:
+    while player.is_dead is False:
         # Calculates and adds damage to enemy.
         player_attack = player.do_damage(enemy)
         print(player_attack)
