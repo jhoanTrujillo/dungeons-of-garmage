@@ -31,9 +31,7 @@ def play(event_node):
     Main game loop. Display event text, choices, and handle player choices
     It also handles, damage, heal, and any other event logic
     """
-    print("\n")
-    print("[green]==============================================[/green]")
-    print("\n")
+    print("""                                  [grey]===[/grey]""")
     # Checks for the event type, and handles the logic.
     # If the player isn't dead. Display story text.
     event_handler(event_node)
@@ -42,8 +40,11 @@ def play(event_node):
     Listens for player choices and return the value selected by the player.
     It also allows player to end the game.
     """
-    slow_print("Event: ")
-    print(event_node.text)
+    print("\n")
+    slow_print(event_node.text)
+    for i, (option, _) in enumerate(event_node.options, 1):
+        slow_print(f"{i}. {option}")
+    # Checks choice type
     choice = event_choices(event_node)
     # Uses the choice variable to select the next node that will be display.
     next_node = event_node.options[choice - 1][1]
@@ -51,16 +52,18 @@ def play(event_node):
 
 
 def event_choices(event_node):
-    # Iterate over the choices the player can take and addes them to the menu.
-    for i, (option, _) in enumerate(event_node.options, 1):
-        slow_print(f"{i}. {option}")
-        # Checks choice type
-    try:
-        choice = input("Enter (1 or 2) or enter any other value to exit:\n")
-        choice = int(choice)
-    except ValueError:
-        exit_game()
-    return choice
+    num_choices = len(event_node.options)
+    while True:
+        try:
+            choice = input(f"Enter (1 to {num_choices}) or enter any other key to exit:\n")
+            if not choice.isdigit():
+                exit_game()
+            choice = int(choice)
+            if choice < 1 or choice > num_choices:
+                raise ValueError("Invalid choice")
+            return choice
+        except ValueError:
+            event_choices(event_node)
 
 
 def event_handler(event_node):
@@ -72,6 +75,7 @@ def event_handler(event_node):
     # Ensures no options are display after text and ends game.
     if event_node.category == "ending":
         print(event_node.text)
+        print("\n")
         exit_game()
     # Display the text of a battle between enemy and player
     if event_node.category == "battle":
@@ -84,7 +88,9 @@ def event_handler(event_node):
         EARNED_ITEM = player.add_item(event_node.requirement)
         print(EARNED_ITEM)
     if event_node.category == "alternative":
-        player.use_item(event_node)
+        used_item = player.use_item(event_node)
+        if type(used_item) != None:
+          print(used_item)
     if event_node.category == "heal":
         # Handles the consequence of health reduce or gain from choices.
         healing = player.restore_damage()
@@ -105,12 +111,12 @@ def battle(player, enemy):
         player_attack = player.do_damage(enemy)
         print(player_attack)
         # If the enemy is not dead. Do:
-        if enemy.is_dead is True:
+        if enemy.is_dead is False:
             enemy_attack = enemy.do_damage(player)
             print(enemy_attack)
             # Breaks the loop if the enemy is_dead status is true
         else:
-            slow_print(f"You defeated the {enemy.name}.")
+            print(f"[green]You defeated the {enemy.name}.[/green]")
             slow_print(f"Current health is {player.health}")
             print("\n")
             break

@@ -28,8 +28,10 @@ class Character:
         self.health -= damage
         if self.health <= 0:
             self.is_dead = True
-        return f"""[red]{self.name} took {damage}[/red]
-        Current Health: {self.health}."""
+        return f"""
+        [red3]{self.name} took {damage}[/red3]
+        Current Health: {self.health}.
+        """
 
     def restore_damage(self, heal=1):
         """
@@ -37,8 +39,10 @@ class Character:
         heal is provided on the call.
         """
         self.health += heal
-        return f"""[green bold]Some damage was restored.\n
-        Current Health: { self.health }[/green bold]."""
+        return f"""
+        [green bold]Some damage was restored.
+        Current Health: { self.health }[/green bold].
+        """
 
     def do_damage(self, enemy):
         """
@@ -53,13 +57,13 @@ class Character:
         if enemy.health <= 0:
             enemy.health = 0
             enemy.is_dead = True
-        return f"""[red bold]{enemy.name} took {damage} damage.
-        Leaving it with {enemy.health} health.[/red bold]"""
+        return f"[red3 bold]{enemy.name} took {damage} damage.[/red3 bold]"
 
     def add_item(self, item_name):
         # Append string with item name to the items array
         self.items.append(item_name)
-        return f"[green]you gain { item_name }[/green]"
+        return f"""
+        [orange1 bold]you gain and Item: { item_name }[/orange1 bold]"""
 
     def use_item(self, event_node):
         node_options = event_node
@@ -70,7 +74,9 @@ class Character:
                 # Individually add both values in the array.
                 node_options.add_option(node_options.requirement[-1][0],
                                         node_options.requirement[-1][-1])
-                return f"An alternative route has open due to an item: {item}"
+                return f"""
+                [green]An alternative route has open due to an item: {item} [\green]"""
+
 
 # Player declaration
 player = Character("Player", 5, 5, 4)
