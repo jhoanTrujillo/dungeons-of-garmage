@@ -98,7 +98,7 @@ that way the event parser can apply the logic to the event appropriately.
 
 ### Flowchart of behavior
 
-![flowchart of features and behavioours](https://github.com/jhoanTrujillo/dungeons-of-garmage-pp3/repo_images/flowchart.png)
+![flowchart of features and behavioours](https://github.com/jhoanTrujillo/dungeons-of-garmage-pp3/blob/e99bea96ba129d193724bf45d3db612412479995/repo_images/flowchart.png)
 
 [Back to table of content](#table-of-content)
 
