@@ -1,4 +1,6 @@
-import sys, time, random
+import sys
+import time
+import random
 import classess.choices as event
 from classess.characters import player, enemies
 from rich import print
@@ -54,7 +56,6 @@ def event_choices(event_node):
         slow_print(f"{i}. {option}")
         # Checks choice type
     try:
-        #String too long  for ID but unable 
         choice = input("Enter (1 or 2) or enter any other value to exit:\n")
         choice = int(choice)
     except ValueError:
