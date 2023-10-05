@@ -78,7 +78,6 @@ This project uses the following tech stack:
 - JS (Node.js)
   - Code created by code institute to run terminal in site. 
 - HTML
-  - Used to hold
 - Github
 - Vscode
 - Git
@@ -99,7 +98,9 @@ that way the event parser can apply the logic to the event appropriately.
 
 ### Flowchart of behavior
 
-![flowchart of features and behavioours](https://jhoantrujillo.github.io/dungeons-of-garmage-pp3/repo_images/flowchart.png)
+Please see the flowchart in the link below to better understand the behaviour of the program:
+
+- [Flowchart](https://github.com/jhoanTrujillo/dungeons-of-garmage-pp3/blob/6fbfcdfe96ccbd21f08b4a6dd462c9e8e1b73720/repo_images/flowchart.png)
 
 [Back to table of content](#table-of-content)
 
