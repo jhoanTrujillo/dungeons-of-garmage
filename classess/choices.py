@@ -38,24 +38,16 @@ class Event:
         """
         self.options.append((option, next_node))
 
-# Story nodes declaration
 
 # declaring all events ensure easy of access
 intro = Event()
-
-
 # Dungeon Path
 treasure_room = Event()
-
-
 # Mimic ending is part of this path
 library = Event()
-
-
 armory = Event()
 skeleton_fight = Event()
 pythonmancer = Event()
-
 # Underground path
 cave = Event()
 hold_breath = Event()
@@ -64,18 +56,15 @@ interact_with_dwellers = Event()
 sneak_from_dwellers = Event()
 hostile_towards_dwellers = Event()
 undertown = Event()
-
 # Temple (last event for both path)
 temple = Event()
 heretic_slayer = Event()
 cosplayer = Event()
 trickster = Event()
 the_pythonmancer = Event()
-
 # Boss scenes
 the_hand = Event()
 the_hand_weaken = Event()
-
 # Endings
 mimic_ending = Event()
 dead_by_battle = Event()
@@ -100,8 +89,8 @@ What would you do?
 
 # Underground path
 cave.add_values(
-    """You fell down a dark abyss. Eventually landing 
-in a body of water. As you emerge you can hear creatures 
+    """You fell down a dark abyss. Eventually landing
+in a body of water. As you emerge you can hear creatures
 in the distance and the darkness gives way to the dim light.
     """,
     [
@@ -111,7 +100,7 @@ in the distance and the darkness gives way to the dim light.
 )
 
 hold_breath.add_values(
-    """As you hold your breath you start to heal, 
+    """As you hold your breath you start to heal,
 Thanks to the spring. Of course, breathing is still an issue,
 so as you re-surface. Small fluffy cave dwellers look at you in awe.
     """,
@@ -141,11 +130,11 @@ path behind them.""",
     [
         ("Follow the fluffy dwellers", undertown),
         ("attack the dwellers.", massacre_by_mob)
-    ], 
+    ],
     "alternative",
-    [ 
+    [
         "Modern Guide To Pythonmancy",
-       ("Summon sneak to distract dwellers", sneak_from_dwellers)
+        ("Summon sneak to distract dwellers", sneak_from_dwellers)
     ]
 )
 
@@ -234,11 +223,11 @@ but other then that the only exist is behind the priest. What do you do?
   ]
 )
 
-heretic_slayer.add_values(  
+heretic_slayer.add_values(
     "Your calling is clear! To slay the heretics, and free garmage",
-  [
-    ("Fight the hand", the_hand),
-  ], "alternative", ["Excalibur", ("Vanquish evil!", vanquisher)]
+    [
+        ("Fight the hand", the_hand),
+    ], "alternative", ["Excalibur", ("Vanquish evil!", vanquisher)]
 )
 
 # Wear the robe and join the cultist circle
