@@ -75,13 +75,26 @@ This project was design to work with terminal, as such, the choice of style was 
 This project uses the following tech stack:
 
 - Python
+  - Main programming language used for the project 
 - JS (Node.js)
+  - Code created by code institute to run terminal in site. 
 - HTML
-- CSS
+  - Used to hold
+- Github
+- Vscode
+- Git
+  - For version control.
 
 [Back to table of content](#table-of-content)
 
 ### Features
+The initial draft of the game started with a couple of choices when it came from game features. I would like to provide some more context into those features below:
+
+- Events - All the events use the same class named Event() which looks for text, an array of options, and if the event has a special category
+that way the event parser can apply the logic to the event appropriately.
+- Routes: Routes are simple, they are split between two to keep the story moving and avoid choice paralyzis.
+- Battle: The battle when over a couple of ideas in the whiteboard. Firstly, it was intended to provide the player with choices to fight, but then I realized that would take away from the narrative, so I added a quick resolution to combat which autoplays and provide an outcome. The latest version only allows for text to be displayed, and for the damage to be auto calculated.
+- Item interactions: Items are simply added to an array and then the utility file has the event_handler function which checks the type of event and handles the logic needed to make the event act as expected.
 
 [Back to table of content](#table-of-content)
 
@@ -94,7 +107,7 @@ to improve the readability of the comments. Sadly, the new convention was adopte
 The workflow follow to upload the project to github was simple. Just using the commands: 
 
 - git add - To stage the changes.
-- git commit -m "<\type>[optional scope]: <\description>" - To add a message and commit the changes to be pushed.
+- git commit -m "`<\type>[optional scope]: <\description>`" - To add a message and commit the changes to be pushed.
 - git push - Lastly, push command to send the changes to our github repo. 
 
 [Back to table of content](#table-of-content)
@@ -112,9 +125,9 @@ Heroku, is the **PaaS** (Platform as a service) of choice for this project. To d
   - requirements.txt
   - Procfile
 
-Lastly, you can install this project's requirements by using: pip3 install -r requirements.txt. If you have your own packages that have been installed, then the requirements file needs updated using: pip3 freeze --local > requirements.txt
+Lastly, you can install this project's requirements by using: `pip3 install -r requirements.txt`. If you have your own packages that have been installed, then the requirements file needs updated using: `pip3 freeze --local > requirements.txt`
 
-The **Procfile** can be created with the following command: echo web: node index.js > Procfile
+The **Procfile** can be created with the following command: `echo web: node index.js > Procfile`
 
 [Back to table of content](#table-of-content)
 

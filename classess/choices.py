@@ -37,10 +37,10 @@ class Event:
         Allows to add option to any node.
         """
         self.options.append((option, next_node))
+
 # Story nodes declaration
-# Defining all the events as empty class
 
-
+# declaring all events ensure easy of access
 intro = Event()
 
 
@@ -83,6 +83,8 @@ lamb = Event()
 priest_of_hold = Event()
 vanquisher = Event()
 the_coward = Event()
+massacre_by_mob = Event()
+escape_route = Event()
 
 # Intro add_values.
 intro.add_values(
@@ -98,35 +100,36 @@ What would you do?
 
 # Underground path
 cave.add_values(
-  """You fell down a dark abyss. Eventually landing in a body of water.
-As you emerge you can hear creatures in the distance and the darkness
-gives way to the dim light of torches approaching.""",
-  [
-    ("hold your breath", hold_breath),
-    ("Hide into the shadows", hide_in_shadows)
-  ],
-  "damage"
+    """You fell down a dark abyss. Eventually landing 
+in a body of water. As you emerge you can hear creatures 
+in the distance and the darkness gives way to the dim light.
+    """,
+    [
+      ("hold your breath", hold_breath),
+      ("Hide into the shadows", hide_in_shadows)
+    ], "damage"
 )
 
 hold_breath.add_values(
-    """As you hold your breath you start to heal, Thanks to the spring.
-Of course, breathing is still an issue, so as you re-surface.
-small fluffy cave dwellers look at you in awe.""",
+    """As you hold your breath you start to heal, 
+Thanks to the spring. Of course, breathing is still an issue,
+so as you re-surface. Small fluffy cave dwellers look at you in awe.
+    """,
     [
         ("*yell* I'm that who reigns in the depths", interact_with_dwellers),
         ("Leave water, and punch a dweller", hostile_towards_dwellers)
-    ],
-    "heal"
+    ], "heal"
 )
 
 hide_in_shadows.add_values(
     """You leave the water and hide in the shadows,
 and between rocks. You notice small fluffy creatures with
 little torches approaching the body of water,
-they look at each other and shrug.""",
+they look at each other and shrug.
+    """,
     [
         ("Sneak around from the creatures", sneak_from_dwellers),
-        ("Show yourself, ...Hello?.", interact_with_dwellers)
+        ("*Show yourself* ...Hello?.", interact_with_dwellers)
     ]
 )
 
@@ -136,8 +139,24 @@ are facinanted, the others are talking between each other,
 and then, what seems to be the leader points towards the
 path behind them.""",
     [
-        ("Follow the fluffy dwellers", Undertown),
-        ("Show yourself, ...Hello?.", interact_with_dwellers)
+        ("Follow the fluffy dwellers", undertown),
+        ("attack the dwellers.", massacre_by_mob)
+    ], 
+    "alternative",
+    [ 
+        "Modern Guide To Pythonmancy",
+       ("Summon sneak to distract dwellers", sneak_from_dwellers)
+    ]
+)
+
+sneak_from_dwellers.add_values(
+    """While the dwellers are distracted, you managed to sneak into
+their little village. Some treasure can be found, and you add it
+to your bag. Outside from that you see a stone starcase leading
+in two directions""",
+    [
+        ("Take the steps to the right?", temple),
+        ("take the steps to the left?", escape_route)
     ]
 )
 
@@ -147,8 +166,8 @@ As you stand infront of a stone staircase which split into two ways.
 leading back to the dungeon. the dwellers hand you a sword.
 Too big for the little creatures, but perfect for your journey ahead.
 What do you do?""", [
-        ("Take the right path", None),
-        ("Take the left path", None)
+        ("Take the right path", temple),
+        ("Take the path with a light at the end", escape_route)
     ], "reward", "Excalibur"
 )
 
@@ -160,14 +179,6 @@ treasure_room.add_values(
     ("Head for the door", library),
     ("Open the chest", mimic_ending)
   ]
-)
-
-mimic_ending.add_values(
-  """You open the chest, thinking on all the richest you will find.
-Then you take a moment and notice a [red]fleshy interior[/ red],
-teeth around the lid, As you try to close the door
-[red]a giant grotesque tongue surrounds you.[/ red]
-You are drag inside the chest.""", [], "ending"
 )
 
 library.add_values(
@@ -192,7 +203,7 @@ one of them is ready to fight!""",
 
 pythonmancer.add_values("""Between the hundreds of books,
 annexed in the walls of the library. You find a book called:
-'Modern Guide To Pythonmancy', and put it in your bag.
+'[orange]Modern Guide To Pythonmancy[/orange]', and put it in your bag.
 Then as you look around there is a small black door, and a big old wooden door.
 """, [
         ("Go throught the wooden door", armory),
@@ -206,7 +217,7 @@ more skeletons start rising. You know this fight will take the best
 of you at this pace. What do you do?
 """,
   [
-    ("Run to the Library", temple),
+    ("Run away to the halls", temple),
     ("Jump down the well", cave)
   ], "battle", "Skeleton"
 )
@@ -221,6 +232,13 @@ but other then that the only exist is behind the priest. What do you do?
     ("Stop this heresy!", heretic_slayer),
     ("Wear the robe and join the cultist", cosplayer)
   ]
+)
+
+heretic_slayer.add_values(  
+    "Your calling is clear! To slay the heretics, and free garmage",
+  [
+    ("Fight the hand", the_hand),
+  ], "alternative", ["Excalibur", ("Vanquish evil!", vanquisher)]
 )
 
 # Wear the robe and join the cultist circle
@@ -267,7 +285,17 @@ throwing and hitting cultist around.
   ]
 )
 
-# Use Excalibur to avoid evil endin
+the_hand.add_values(
+  """You did it! You defeated The Hand with all your might.
+Legends will be told about you in the future. Although, not perfect,
+Garmage will be a better day today. What would you do?
+""",
+  [
+    ("Declare yourself The Hero of Garmage!", the_hand),
+    ("Run with the loot!", escape_route)
+  ], "battle", "The hand"
+)
+
 the_hand_weaken.add_values(
     """[red]The Hand, lays defeated[/red], a crown of thorns in the floor,
 A a sense of duty towards your new calling. You don't know if it is The Hand,
@@ -283,45 +311,60 @@ Would you accept the offer of The Hand?""",
 
 dead_by_battle.add_values(
     """You fought with all your might, but might alone won't save a lost soul.
-[red3]You fell in combat[/red3] like hundreds of other adventurers.""",
-    [], "ending"
+[red3]You fell in combat[/red3] like hundreds of other adventurers.
+    """, [], "ending"
+)
+
+mimic_ending.add_values(
+  """You open the chest, thinking on all the richest you will find.
+Then you take a moment and notice a [red]fleshy interior[/ red],
+teeth around the lid, As you try to close the door
+[red]a giant grotesque tongue surrounds you.[/ red]
+You are drag inside the chest.""", [], "ending"
 )
 
 lamb.add_values(
     """You give yourself to the command of [purple]The Hand[/ purple].
 [red3]You can feel the warm of its embrace, as you traverse the void.
-[/ red3] This is the end of your journey, but it feels right.""",
-    [], "ending"
+[/ red3] This is the end of your journey, but it feels right.
+  """, [], "ending"
 )
 
-# Chaotic Ending
 the_coward.add_values(
-   """You take all you can, all the gold, silver, and even copper.
-All in your bag. Nor [purple]The Hand[/purple] or the cultist
-had enough time to see you escape. Between the crevices of a cave
-in the underground layer of the dungeon you see a light back to Garmage
+    """[purple]The Hand[/purple] nor the cultist had time to see you escape.
+From between a crevices of a cave, going out to the surface, a person
+can be seeing reaching the surface. Not richer, nor migthier, but alive.
 [pink]Congratulations, you get to live another day![/ pink]
-""", [], "ending"
+    """, [], "ending"
 )
 
-# Evil Ending
 priest_of_hold.add_values(
     """With your crown of thorns, and [purple]The Hand[/purple] as your throne,
 you are the new [bold purple]Priest of The Church of Hold[/ bold purple].
 May Garmage sleep well one last night, because your reign of evil starts here.
-  """,
-    [],
-    "ending",
+    """, [], "ending"
 )
 
-# Hero Ending
 vanquisher.add_values(
-    """With the power of [yellow]Excalibur[/ yellow]!
-you break the hold of evil in your mind. and the light of the sword,
-incinerates all evil infront of you, from the cultist, to [red]The Hand[red],
+    """With the power of [yellow]Excalibur[/ yellow] The light of the sword,
+incinerates all evil infront of you. from the cultist, to [red]The Hand[red],
 They are all but burnt marks on the ground.
 You are [bold yellow]The Paladin of Light[/bold yellow],
 Bringing Garmage to a new age of peace.
-    """,
-    [], "ending"
+    """, [], "ending"
+)
+
+massacre_by_mob.add_values(
+    """The little cave dwellers, aren't too happy about your aggression.
+Their fur stand, and their fangs start to show. The little creatures
+jump at you like feral devils. [red]Not much of you was left behind[/red].
+    """, [], "ending"
+)
+
+escape_route.add_values(
+    """You take what you can! and go up the stairs, and run away with it.
+As you run up a stone staircase, you see a light which grows stronger
+with each step. After a blinding second, you see a [green]lush forest[/green].
+you made it! You are back in Garmage and richer man, of course.
+    """, [], "ending"
 )

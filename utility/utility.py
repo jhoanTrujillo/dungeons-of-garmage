@@ -40,9 +40,8 @@ def play(event_node):
     Listens for player choices and return the value selected by the player.
     It also allows player to end the game.
     """
+    slow_print("Event: ")
     print(event_node.text)
-    # Space for aesthetic purposes.
-    print("\n")
     choice = event_choices(event_node)
     # Uses the choice variable to select the next node that will be display.
     next_node = event_node.options[choice - 1][1]
