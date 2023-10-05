@@ -131,6 +131,22 @@ The **Procfile** can be created with the following command: `echo web: node inde
 
 [Back to table of content](#table-of-content)
 
+### Testing 
+
+For testing purposes I used the following: 
+
+- Python linter provided by code institute [pep8 checker](https://pep8ci.herokuapp.com/#), the checks to the run, utility, choices, and character .py files are properly execute and compliant with python's standards. 
+
+[Back to table of content](#table-of-content)
+
+### Bugs
+
+At the moment, the majority of the issues I would like to fix are style related, and possibly built a solution to be able to use the styling of the print imported from the rich module, and slow_printing at the same time. Other than that, I believe everything else seems in order. 
+
+> Note: I troubleshoot and tested extensibely to make sure the main mechanics and progression of story wasn't bugged down by anything. But then again I added several routes which I might not have experience myself in the story. 
+
+[Back to table of content](#table-of-content)
+
 ## 5. Credits 
 
 ## Resources
